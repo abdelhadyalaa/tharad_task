@@ -3,11 +3,12 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
-
 import 'app_image.dart';
 
 class AppImageUpLoader extends StatefulWidget {
-  const AppImageUpLoader({super.key});
+  final Function(String path)? onImagePicked;
+
+  const AppImageUpLoader({super.key, this.onImagePicked});
 
   @override
   State<AppImageUpLoader> createState() => _AppImageUpLoaderState();
@@ -26,6 +27,9 @@ class _AppImageUpLoaderState extends State<AppImageUpLoader> {
       setState(() {
         _pickedImage = selected;
       });
+      if (widget.onImagePicked != null) {
+        widget.onImagePicked!(selected.path);
+      }
     }
   }
 
@@ -35,7 +39,6 @@ class _AppImageUpLoaderState extends State<AppImageUpLoader> {
       options: RoundedRectDottedBorderOptions(
         dashPattern: const [10, 10],
         radius: Radius.circular(8.r),
-
         color: const Color(0xff42867B),
         strokeWidth: 1,
       ),
@@ -53,27 +56,27 @@ class _AppImageUpLoaderState extends State<AppImageUpLoader> {
               onTap: () => _showSelectionSheet(context),
               child: _pickedImage == null
                   ? Column(
-                      children: [
-                        AppImage(image: "camera.svg", bottomSpace: 6.h),
-                        Text(
-                          "الملفات المسموح بيها :  JPEG , PNG",
-                          style: Theme.of(context).textTheme.titleSmall,
-                        ),
-                        Text(
-                          "الحد الاقصي : 5MB",
-                          style: Theme.of(context).textTheme.titleSmall,
-                        ),
-                      ],
-                    )
+                children: [
+                  AppImage(image: "camera.svg", bottomSpace: 6.h),
+                  Text(
+                    "الملفات المسموح بيها :  JPEG , PNG",
+                    style: Theme.of(context).textTheme.titleSmall,
+                  ),
+                  Text(
+                    "الحد الاقصي : 5MB",
+                    style: Theme.of(context).textTheme.titleSmall,
+                  ),
+                ],
+              )
                   : ClipRRect(
-                      borderRadius: BorderRadius.circular(8.r),
-                      child: Image.file(
-                        File(_pickedImage!.path),
-                        fit: BoxFit.cover,
-                        width: 100.w,
-                        height: 100.h,
-                      ),
-                    ),
+                borderRadius: BorderRadius.circular(8.r),
+                child: Image.file(
+                  File(_pickedImage!.path),
+                  fit: BoxFit.cover,
+                  width: 100.w,
+                  height: 100.h,
+                ),
+              ),
             ),
           ],
         ),

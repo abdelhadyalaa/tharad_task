@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:tharad_task/auth/login.dart';
-import 'package:tharad_task/auth/otp.dart';
+import 'package:tharad_task/views/auth/login.dart';
+import 'package:tharad_task/views/auth/otp.dart';
+import 'package:tharad_task/views/home/view.dart';
 
-import 'auth/register.dart';
 import 'core/logic/helper_methods.dart';
 
 void main() {
@@ -39,9 +39,9 @@ class MyApp extends StatelessWidget {
             titleSmall: TextStyle(fontSize: 6, fontWeight: FontWeight.w400),
           ),
           scaffoldBackgroundColor: Color(0xffFFFFFF),
-          primaryColor: Color(0xff42867B),
+          primaryColor: Color(0xff2C6062),
         ),
-        home: OtpView(),
+        home: HomeView(),
         navigatorKey: navKey,
         builder: (context, child) {
           return GestureDetector(

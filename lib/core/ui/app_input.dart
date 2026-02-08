@@ -7,6 +7,7 @@ class AppInput extends StatefulWidget {
   final String? suffixIcon;
   final Color? vColor;
   final TextInputType? keyboardType;
+  final TextEditingController? controller;
 
   final String hint, label;
   final bool withCountryCode, isPassword,isNumber;
@@ -21,7 +22,7 @@ class AppInput extends StatefulWidget {
     this.isPassword = false,
     this.bottomSpace,
     this.vColor,
-    this.keyboardType,  this.isNumber=false ,
+    this.keyboardType,  this.isNumber=false, this.controller ,
   });
 
   @override
@@ -39,6 +40,7 @@ class _AppInputState extends State<AppInput> {
         children: [
           Expanded(
             child: TextFormField(
+              controller: widget.controller,
               keyboardType: widget.isNumber ? TextInputType.number : (widget.keyboardType ?? TextInputType.text),              validator: (value) {
                 if (value == null || value.isEmpty) {
                   return widget.isPassword
